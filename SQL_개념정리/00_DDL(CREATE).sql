@@ -45,3 +45,38 @@ PRIMARY KEY (기본키)
     
     컬럼 레벨, 테이블 레벨 설정 가능함
 */
+
+/*
+테스트를 진행하거나 컬럼에 대한 설정을 변경한 후 특정한 내용을 확인하길 원한다면
+테이블을 복제해서 사용할 수 있음(사본 만들기)
+
+사본 만들기를 진행하는 방법
+    모두 동일하게 사본 만들기
+    CREATE TABLE 새로운테이블명 AS SELECT * FROM 복사할테이블이름;
+    
+    특정한 컬럼만 선택해서 사본 만들기
+    CREATE TABLE 새로운테이블명 AS SELECT 원하는컬럼명 FROM 복사할테이블이름;
+*/
+
+CREATE TABLE EMPLOYEE2 AS SELECT * FROM employee;
+-- 테이블을 만들 때 다른 테이블과 동일하게 (컬럼,데이터값) 복사, 붙여넣기 진행할 때는
+-- CREATE TABLE 테이블명 AS 복사하고 싶은 테이블 SELECT
+
+-- 복사한 테이블이 제대로 만들어졌는지 확인하기
+SELECT * FROM 새로만들테이블명;
+
+/*
+DML : 데이터 조작 언어
+테이블의 값을 삽입하거나 수정하거나 삭제하는 구문
+
+INSERT : 삽입
+
+UPDATE : 수정
+
+DELETE : 삭제
+
+한 후에 반드시 COMMIT 이나 ROLLBACK을 진행할 것
+
+COMMIT ROLLBACK - 팀원이나 다른 사람과 상의 후 진행
+개발 연습때는 단독으로 진행해도 좋음
+*/
