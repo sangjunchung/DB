@@ -37,8 +37,78 @@ VALUES(800, '동그라미','870814-2123456','khcafe@or.kr','01076996190','D1','J
 
 COMMIT;
 
+SELECT * FROM employee2
+WHERE EMP_ID = 800;
 
+INSERT INTO department2
+VALUES ('D0', '개발운영부', 'L1');
 
+ROLLBACK;
 
+-- INSERT 에서 특정 부분을 선택해서 넣을 때는 컬럼명을 작성해서 넣어줌
+-- INSERT INTO 테이블명(컬럼명1,컬럼명2,...) VALUES(컬럼명1의값,컬럼명2의값,...)
 
+/*
+    UPDATE
+    테이블에 기록된 컬럼의 값을 수정하는 구문
+    업데이트를 사용하는 예제 : 회원정보수정(핸드폰번호,주소,아이디,비밀번호 변경), 
+                          사업자-상품수정(수량,이름,설명 등)
+    
+    [작성법]
+    UPDATE 테이블명 SET 컬럼명 = 변경할값;
+    [WHERE 컬럼명 비교연산자 비교값]; <- 필수 X
+*/
+SELECT * FROM department2
+WHERE dept_id = 'D9';
 
+UPDATE department2 SET dept_title = '전략기획실'
+WHERE dept_id = 'D9';
+
+SELECT * FROM department2
+WHERE dept_id = 'D9';
+
+-- 저장을 원한다면 COMMIT / 되돌리기를 원한다면 ROLLBACK
+ROLLBACK;
+
+-- 조건을 설정하지 않고 모든 행의 컬럼 값을 변경
+-- UPDATE 테이블명 SET 컬럼명 = 변경할내용;
+
+-- 여러 컬럼을 한번에 수정할 경우 콤마(,)로 컬럼을 구분해서 수정
+-- D2 / 회계관리부 -> D0 / 회계관리팀
+UPDATE DEPARTMENT2 SET DEPT_ID = 'D0', DEPT_TITLE = '회계관리팀'
+WHERE DEPT_ID ='D2';
+
+SELECT * FROM DEPARTMENT2;
+
+ROLLBACK;
+
+-- UPDATE 한 번에 여러 컬럼 업데이트
+CREATE TABLE EMPLOYEE3 AS SELECT * FROM EMPLOYEE;
+
+UPDATE EMPLOYEE3 
+SET EMAIL = 'ONE_SUN@or.kr', PHONE = '01012345678'
+WHERE EMP_ID = 200;
+
+SELECT EMP_ID,EMAIL,PHONE FROM EMPLOYEE3;
+
+ROLLBACK;
+
+/*
+    DELETE 삭제하기
+    테이블 안에 존재하는 값들을 삭제하는 구문
+    
+    [작성법]
+    DELETE FROM 테이블명 WHERE 조건설정;
+    만약 WHERE 조건을 설정하지 않으면 모든 행이 다 삭제됨
+    
+    DELETE FROM 테이블명; -> 테이블 안에 있는 모든 내용 삭제
+    DELETE FROM 테이블명 WHERE 컬럼명 = 삭제할컬럼값;
+        -> 테이블 안에서 특정한 컬럼 값에 해당하는 줄을 모두 삭제
+        
+    -- 완전 삭제 -> COMMIT
+    -- 되돌리기(복구) -> ROLLBACK
+    
+    주의할점 : 
+    DELETE 는 TABLE 안에 있는 내용을 삭제
+    DROP 은 TABLE 자체를 삭제
+*/
