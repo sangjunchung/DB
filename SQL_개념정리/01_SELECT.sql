@@ -277,3 +277,96 @@ SELECT EMP_NAME||' - '||PHONE FROM employee;
 SELECT EMP_ID||' - '||DEPT_CODE FROM employee;
 SELECT EMP_NAME||' : '||SALARY AS "이름 : 급여" FROM employee;
 SELECT EMP_NAME||' - '||SALARY*12 AS "이름 - 연봉" FROM employee;
+
+/*
+ORDER BY 절
+    SELECT 문의 조회 결과(RESULT SET)를 정렬할 때 사용하는 구문
+    
+    *** SELECT 구문에서 제일 마지막에 해석됨 ***
+    
+    [작성법]
+    SELECT 컬럼명, 컬럼명 AS "별칭", 컬럼명, ...
+    FROM 테이블명
+    WHERE 조건식
+    ORDER BY 컬럼명|별칭|컬럼순서(오름 내림 차순)
+    
+    컬럼순서의 기본값은 오름 차순
+    ASC : 오름차순(ASCENDING)
+    DESC : 내림차순(DESCENDING)
+*/
+
+SELECT EMP_NAME,SALARY FROM EMPLOYEE
+ORDER BY SALARY ASC;
+
+SELECT EMP_NAME,SALARY FROM EMPLOYEE
+ORDER BY SALARY DESC;
+
+SELECT EMP_ID, EMP_NAME, DEPT_CODE
+FROM employee
+WHERE DEPT_CODE IN ('D5','D6','D9')
+ORDER BY DEPT_CODE;
+
+SELECT EMP_ID,EMP_NAME,SALARY 
+FROM employee
+WHERE SALARY BETWEEN 3000000 AND 6000000
+ORDER BY 2 DESC; -- 2 : EMP_NAME
+-- 만약 EMP_ID 로 정렬을 원할시 1로 작성
+-- 만약 SALARY 로 정렬을 원할시 3로 작성
+
+SELECT EMP_NAME,SALARY*12 AS "연봉"
+FROM employee
+ORDER BY 2 DESC;
+
+-- ORDER BY 로 정렬을 진행할 경우에는
+-- SELECT 절에 작성된 컬럼을 그대로 따라 작성한 경우가 많음
+
+/* OREDER BY 절에서 별칭 사용하기 
+SELECT 절 해석 이후 ORDER  BY 절이 해석되기 때문에
+SELECT 절에서 해석된 별칭을 ORDER BY 절에서 사용할 수 있음
+*/
+SELECT EMP_NAME,SALARY*12 AS "연봉"
+FROM employee
+ORDER BY 연봉 DESC;
+-- 주의할 점 : ORDER BY 에서는 별칭 사용이 가능하지만
+-- WHERE 절의 경우 조건이기 때문에 별칭 사용이 불가능함
+-- ORDER BY는 결과를 가지고 결과 정리를 하는 표현 방법
+-- WHERE 절은 결과를 나타내기 위해 찾는 조건문이기 때문에 결과 확정 전이므로 별칭 사용 불가능
+
+/* 정렬중첩 
+먼저 작성된 정렬 기준을 깨지 않고
+다음 작성된 정렬 기준 적용
+각각 다른 정렬이 된것
+*/
+
+SELECT EMP_NAME,DEPT_CODE,SALARY
+FROM employee
+ORDER BY DEPT_CODE, SALARY DESC;
+
+SELECT EMP_NAME AS "이름",DEPT_CODE AS "부서코드",JOB_CODE AS "직급코드"
+FROM employee
+ORDER BY 부서코드,직급코드 DESC, 이름;
+
+/*
+부서코드 1번 정렬
+제일 먼저 부서코드가 오름차순으로 정렬
+D1, D2, D5, D6, D8, D9, (NULL)
+
+그 다음에
+동일한 부서코드 내에서 직급 코드가 내림차순으로 정렬
+D1의 부서에서 직급코드가 내림차순이기 때문에 J7, J6 순으로 정렬
+
+그 다음에 
+동일한 부서코드 및 직급코드 내에서 이름이 오름차순으로 정렬
+D1 - J6 에서 전지연, 차태연 순으로 정렬
+
+컬럼 위치랑 관계 없이 정렬이 표기
+*/
+-- 위에서 작성한 ORDER BY 순으로 컬럼을 보긴 원한다면 아래와 같이 작성
+SELECT DEPT_CODE AS "부서코드",JOB_CODE AS "직급코드",EMP_NAME AS "이름"
+FROM employee
+ORDER BY 부서코드, 직급코드 DESC, 이름;
+
+
+
+
+
