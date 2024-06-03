@@ -1,0 +1,36 @@
+/* ORDER BY 실습하기 */
+SELECT * FROM employee
+ORDER BY EMP_NAME;
+
+SELECT * FROM employee
+ORDER BY SALARY DESC;
+
+SELECT EMP_ID AS "사번",EMP_NAME AS "이름"
+FROM employee
+ORDER BY 이름 DESC;
+
+SELECT EMP_ID,EMP_NAME,SALARY AS "월급"
+FROM employee
+ORDER BY 3 DESC;
+
+SELECT EMP_NAME,SALARY AS "월급",BONUS AS "보너스"
+FROM employee
+ORDER BY 보너스 DESC, 월급 ASC;
+
+SELECT EMAIL AS "이메일",PHONE AS "전화번호"
+FROM employee
+ORDER BY 이메일, 전화번호 DESC;
+
+SELECT EMP_NAME AS "직원명", HIRE_DATE AS "입사일"
+FROM employee
+ORDER BY 직원명 DESC, 입사일;
+
+
+
+
+
+
+
+
+
+
