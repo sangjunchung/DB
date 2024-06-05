@@ -118,6 +118,22 @@ FROM employee;
 SELECT FLOOR(AVG(SALARY))
 FROM employee;
 
+-- TRUNC 버림
+SELECT FLOOR(AVG(SALARY))
+FROM employee;
+
+-- FLOOR 와 TRUNC 차이
+-- 1) FLOOR : 주어진 숫자보다 작거나 가장 큰 정수를 반환 / 소수 부분은 무조건 버림
+SELECT FLOOR(5.7) FROM DUAL; -- 결과 : 5
+SELECT FLOOR(-5.7) FROM DUAL; -- 결과 : -6
+SELECT FLOOR(5.789, 1) FROM DUAL; -- 결과 : 에러 발생
+
+-- 2) TRUNC : 숫자의 소수점을 잘라내는 역활 / 자르고자 하는 자릿수 지정 가능, 기본 값은 소수부분 0
+SELECT TRUNC(5.7) FROM DUAL; -- 결과 : 5
+SELECT TRUNC(-5.7) FROM DUAL; -- 결과 : -5
+SELECT TRUNC(5.789, 1) FROM DUAL; -- 결과 : 5.7
+SELECT TRUNC(5.789, 2) FROM DUAL; -- 결과 : 5.78
+
 /*
     TRIM
     공백 관련 함수
