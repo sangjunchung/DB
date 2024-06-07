@@ -202,8 +202,7 @@ INSERT INTO user_primary_table VALUES (NULL,'이순신');
 -- UNIQUE 는 컬럼에서 NULL 값 한개는 허용됨, 두 개 이상 안됨
 -- PRIMARY KEY 는 NULL 값 및 중복 안됨
 
-/*
-FOREIGN KEY(외부키) 제약조건
+/* 4. FOREIGN KEY(외부키) 제약조건
     배달 어플 - 카페 참조
 
 참조된 다른 테이블의 컬럼이 제공하는 값만 사용할 수 있음
@@ -287,6 +286,56 @@ CREATE TABLE 자식테이블(
     (방법 3) - 부모키 삭제시 자식키도 함께 삭제시킴 : ON DELETE CASCADE
     컬럼4 자료형 CONSTRAINT 인덱스이름 REFERENCES 부모테이블(참조할부모컬럼) ON DELETE CASCADE
 );*/
+
+/* 5. CHECK 제약조건 : 컬럼에 기록되는 값에 조건을 설정할 수 있음
+    CHECK (컬럼명 비교연산자 비교값)
+    비교값은 변하는 값이나 함수 사용 불가
+*/
+
+CREATE TABLE USER_CHECK (
+USER_NO NUMBER PRIMARY KEY,
+USER_ID VARCHAR2(20) UNIQUE,
+USER_PW VARCHAR2(30) NOT NULL,
+USER_NAME VARCHAR2(30),
+GENDER VARCHAR2(10) CHECK(GENDER IN ('남','여'))
+);
+
+-- 앞으로 GENDER 컬럼에는 남 이나 여 라는 글자만 들어갈 수 있음
+
+INSERT INTO USER_CHECK
+VALUES (1, 'USER01','PW01','홍길동','남');
+
+INSERT INTO USER_CHECK
+VALUES (2, 'USER02','PW02','박철수','남자');
+/*
+ORA-02290: check constraint (KH_T.SYS_C007172) violated
+-> 제약조건으로 남 이나 여 만 가능하게 했는데 남자라는 조건이 들어와 에러 발생
+*/
+
+INSERT INTO USER_CHECK
+VALUES (2, 'USER02','PW02','박철수','여');
+
+INSERT INTO USER_CHECK
+VALUES (2, 'USER02','PW02','강영희','려');
+
+-- CHECK 사용방법
+-- 1번 방법 따로 INDEX에 기록하지 않고 조건 설정만 할 경우
+-- 컬럼명 자료형 CHECK(컬럼명 IN ('조건1','조건2'))
+
+-- 2번 방법 따로 INDEX에 기록한 다음 조건 설정한 경우(한 줄 작성)
+-- 컬럼명 자료형 CONSTRAINT 인덱스에기록할이름 CHECK(컬럼명 IN ('조건1','조건2'))
+
+-- 3번 방법 따로 INDEX에 기록한 다음 조건 설정한 경우(여러 줄 작성)
+-- 컬럼명 자료형,
+-- CONSTRAINT 인덱스에기록할이름 CHECK(컬럼명 IN ('조건1','조건2'))
+
+
+
+
+
+
+
+
 
 
 
